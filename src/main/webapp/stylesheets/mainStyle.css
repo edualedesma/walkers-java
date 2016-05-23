@@ -1,0 +1,67 @@
+html {
+	background: url("wallpaper.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+body {
+	padding-top: 20px;
+	font-size: 16px;
+	font-family: "Open Sans",serif;
+	background: transparent;
+}
+
+a:link,a:visited,a:hover,a:active{
+	color: #4B4956;
+	text-decoration:none;
+}
+
+h1 {
+	text-align: center;
+}
+
+.panel {
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+#banner img {
+	width: 25%;
+	text-align: center;
+    /*float: left;
+    margin-left: 5%;
+    border-radius: 10px;
+    border: 2px solid #045FB4;*/
+    margin-bottom: 4%;
+}
+
+.center-block {
+   margin-left:auto;
+   margin-right:auto;
+   display:center;
+   text-align:center;
+}
+
+.comentario {
+	text-align: center;
+	/*background-color: #FFFFFF;
+	border: 1px solid #2E2EFE;
+	padding-left: 2%;
+	width: 40%;
+	border-radius: 10px;
+	margin-left: 30%;
+	margin-top: 2%;*/
+}
+
+
+#enlace {
+	float: left;
+	margin-left: 2%;
+	margin-top: 2%;
+	background-color: #BDBDBD;
+	border: 1px solid #424242;
+	border-radius: 10px;
+	width: 20%;
+	text-align: center;
+}
