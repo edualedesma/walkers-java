@@ -1,4 +1,3 @@
-appengine-skeleton
+Walkers
 =============================
-
-This is a generated application from the appengine-skeleton archetype.
+Java with App Engine project
