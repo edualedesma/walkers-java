@@ -10,6 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
+
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 import practica.eduardo.dao.RutaDao;
 import practica.eduardo.model.Ruta;
@@ -34,46 +39,72 @@ public class AddRutaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
+		UserService userService = UserServiceFactory.getUserService();
+        User user = userService.getCurrentUser();
+        
+        try {
 			dao = new RutaDao();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		String forward="";
-        String action = request.getParameter("action");
-        
-        //PrintWriter out = response.getWriter();
-		//out.println(action);
-		
-		if (action.equalsIgnoreCase("listRuta")){
-        	request.setAttribute("rutas", dao.getAllRutas());
-        	RequestDispatcher jspPage = getServletContext().getRequestDispatcher( "/listRuta.jsp");
-            jspPage.forward(request, response);
-		}
 
-        /*if (action.equalsIgnoreCase("delete")){
-            int rutaId = Integer.parseInt(request.getParameter("id"));
-            dao.deleteRuta(rutaId);
-            forward = "/listRuta.jsp";
-            request.setAttribute("rutas", dao.getAllRutas());    
-        } else if (action.equalsIgnoreCase("edit")){
-            forward = "/ruta.jsp";
-            int id = Integer.parseInt(request.getParameter("id"));
-            Ruta ruta = dao.getRutaById(id);
-            request.setAttribute("ruta", ruta);
-        } else if (action.equalsIgnoreCase("listRuta")){
-        	out.println("PINTAME");
-        	request.setAttribute("rutas", dao.getAllRutas());
-        	//RequestDispatcher jspPage = getServletContext().getRequestDispatcher( "/listRuta.jsp");
-            //jspPage.forward(request, response);
-        } else {
-            forward = "/ruta.jsp";
-        }*/
-
-        RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
+        if (user != null) {
+			String forward="";
+	        String action = request.getParameter("action");
+	        
+	        PrintWriter out = response.getWriter();
+			out.println(action);
+			
+			if (action.equalsIgnoreCase("listRuta")){
+	        	request.setAttribute("rutas", dao.getAllRutas());
+	        	RequestDispatcher jspPage = getServletContext().getRequestDispatcher( "/listRuta.jsp");
+	            jspPage.forward(request, response);
+			}
+			else if (action.equalsIgnoreCase("delete")) {
+				int rutaId = Integer.parseInt(request.getParameter("id"));
+	            dao.deleteRuta(rutaId);
+	            request.setAttribute("rutas", dao.getAllRutas()); 
+	            RequestDispatcher jspPage = getServletContext().getRequestDispatcher( "/listRuta.jsp");
+	            jspPage.forward(request, response);
+			}
+			else if (action.equalsIgnoreCase("edit")) {
+				forward = "/ruta.jsp";
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            Ruta ruta = dao.getRutaById(id);
+	            request.setAttribute("ruta", ruta);
+			}
+			else if (action.equalsIgnoreCase("insert")) {
+				forward = "/ruta.jsp";
+			}
+	
+	        /*if (action.equalsIgnoreCase("delete")){
+	            int rutaId = Integer.parseInt(request.getParameter("id"));
+	            dao.deleteRuta(rutaId);
+	            forward = "/listRuta.jsp";
+	            request.setAttribute("rutas", dao.getAllRutas());    
+	        } else if (action.equalsIgnoreCase("edit")){
+	            forward = "/ruta.jsp";
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            Ruta ruta = dao.getRutaById(id);
+	            request.setAttribute("ruta", ruta);
+	        } else if (action.equalsIgnoreCase("listRuta")){
+	        	out.println("PINTAME");
+	        	request.setAttribute("rutas", dao.getAllRutas());
+	        	//RequestDispatcher jspPage = getServletContext().getRequestDispatcher( "/listRuta.jsp");
+	            //jspPage.forward(request, response);
+	        } else {
+	            forward = "/ruta.jsp";
+	        }*/
+	        RequestDispatcher view = request.getRequestDispatcher(forward);
+	        view.forward(request, response);
+        }
+        else {
+        	response.sendRedirect(userService.createLoginURL(request.getRequestURI()));
+        	//request.setAttribute("rutas", dao.getAllRutas());
+    		RequestDispatcher view = request.getRequestDispatcher("./");
+    		view.forward(request, response);
+        }
 	}
 
 	/**
@@ -84,7 +115,7 @@ public class AddRutaServlet extends HttpServlet {
 		out.println("Dentro del post");
 		
 
-		/*try {
+		try {
 			out.println("DAO creada");
 
 			dao = new RutaDao();
@@ -92,28 +123,29 @@ public class AddRutaServlet extends HttpServlet {
 			Ruta ruta = new Ruta();
 			ruta.setNombre(request.getParameter("nombre"));
 			ruta.setInformacion(request.getParameter("informacion"));
+			ruta.setDificultad(Integer.parseInt(request.getParameter("dificultad")));
+			ruta.setPuntuacion(Integer.parseInt(request.getParameter("puntuacion")));
 			
-	        dao.addRuta(ruta);
-
+	        //dao.addRuta(ruta);
+			String rutaId = request.getParameter("id");
+	        if(rutaId == null || rutaId.isEmpty())
+	        {
+	            dao.addRuta(ruta);
+	        }
+	        else
+	        {
+	        	ruta.setId(Integer.parseInt(rutaId));
+	            dao.updateRuta(ruta);
+	        }
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-        
-        //ruta.setEmail(request.getParameter("email"));
-        //String userid = request.getParameter("userid");
-        //if(userid == null || userid.isEmpty())
-        //{
-        //    dao.addUser(ruta);
-        //}
-        //else
-        //{
-        //	ruta.setUserid(Integer.parseInt(userid));
-        //    dao.updateUser(ruta);
-        //}
-      //  RequestDispatcher view = request.getRequestDispatcher("Index.jsp");
+		
+		request.setAttribute("rutas", dao.getAllRutas());
+		RequestDispatcher view = request.getRequestDispatcher("/listRuta.jsp");
         //request.setAttribute("users", dao.getAllUsers());
-      //  view.forward(request, response);*/
+		view.forward(request, response);
     }
 }

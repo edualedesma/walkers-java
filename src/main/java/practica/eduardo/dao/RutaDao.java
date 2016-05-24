@@ -11,9 +11,11 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 import practica.eduardo.model.Ruta;
-
-
 
 public class RutaDao {
 	
@@ -48,14 +50,21 @@ public class RutaDao {
 
     }
 	
-	public void addRuta(Ruta user) {
+	public void addRuta(Ruta ruta) {
         try {
+        	UserService userService = UserServiceFactory.getUserService();
+            User user = userService.getCurrentUser();
+        	
         	//Connection connection = DriverManager.getConnection(url);
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into Rutas (nombre, informacion) values (?, ?)");
+                    .prepareStatement("insert into Rutas (nombre, informacion, dificultad, puntuacion, user_id) values (?, ?, ?, ?, ?)");
             // Parameters start with 1
-            preparedStatement.setString(1, user.getNombre());
-            preparedStatement.setString(2, user.getInformacion());
+            preparedStatement.setString(1, ruta.getNombre());
+            preparedStatement.setString(2, ruta.getInformacion());
+            preparedStatement.setInt(3, ruta.getDificultad());
+            preparedStatement.setInt(4, ruta.getPuntuacion());
+            preparedStatement.setString(5, user.getUserId());
+            
             //preparedStatement.setDate(3, ); insert new date
             preparedStatement.executeUpdate();
 
@@ -77,34 +86,44 @@ public class RutaDao {
         }
     }
 
-    /*public void updateUser(User user) {
+    public void updateRuta(Ruta ruta) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update users set firstname=?, lastname=?, dob=?, email=?" +
-                            "where userid=?");
+                    .prepareStatement("update Rutas set nombre=?, informacion=?, dificultad=?, puntuacion=? " +
+                            "where id=?");
             // Parameters start with 1
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setDate(3, new java.sql.Date(user.getDob().getTime()));
-            preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setInt(5, user.getUserid());
+            preparedStatement.setString(1, ruta.getNombre());
+            preparedStatement.setString(2, ruta.getInformacion());
+            preparedStatement.setInt(3, ruta.getDificultad());
+            preparedStatement.setInt(4, ruta.getPuntuacion());
+            preparedStatement.setInt(5, ruta.getId());
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     public List<Ruta> getAllRutas() {
+    	UserService userService = UserServiceFactory.getUserService();
+        User user = userService.getCurrentUser();
+    	
         List<Ruta> rutas = new ArrayList<Ruta>();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from Rutas");
+        	
+            //Statement statement = connection.createStatement();
+            //ResultSet rs = statement.executeQuery("select * from Rutas");
+            
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select * from Rutas where user_id=?");
+            preparedStatement.setString(1, user.getUserId());
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Ruta ruta = new Ruta();
                 ruta.setId(rs.getInt("id"));
                 ruta.setNombre(rs.getString("nombre"));
                 ruta.setInformacion(rs.getString("informacion"));
+                ruta.setDificultad(rs.getInt("dificultad"));
+                ruta.setPuntuacion(rs.getInt("puntuacion"));
                 rutas.add(ruta);
             }
         } catch (SQLException e) {
@@ -125,6 +144,8 @@ public class RutaDao {
                 ruta.setId(rs.getInt("id"));
                 ruta.setNombre(rs.getString("nombre"));
                 ruta.setInformacion(rs.getString("informacion"));
+                ruta.setDificultad(rs.getInt("dificultad"));
+                ruta.setPuntuacion(rs.getInt("puntuacion"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

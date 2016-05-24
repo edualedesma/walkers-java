@@ -7,7 +7,7 @@ html {
 }
 
 body {
-	padding-top: 20px;
+	padding-top: 80px;
 	font-size: 16px;
 	font-family: "Open Sans",serif;
 	background: transparent;
@@ -52,16 +52,4 @@ h1 {
 	border-radius: 10px;
 	margin-left: 30%;
 	margin-top: 2%;*/
-}
-
-
-#enlace {
-	float: left;
-	margin-left: 2%;
-	margin-top: 2%;
-	background-color: #BDBDBD;
-	border: 1px solid #424242;
-	border-radius: 10px;
-	width: 20%;
-	text-align: center;
 }

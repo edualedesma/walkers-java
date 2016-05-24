@@ -2,13 +2,13 @@
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
-<%@ page import="java.util.List" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Walkers</title>
+	<title>Mis rutas</title>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="/stylesheets/mainStyle.css"/>
 </head>
@@ -29,10 +29,10 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="active">
-	        	<a href="#">Inicio<span class="sr-only">(current)</span></a>
-	        </li>
 	        <li>
+	        	<a href="/Index.jsp">Inicio<span class="sr-only">(current)</span></a>
+	        </li>
+	        <li class="active">
 	        	<a href="/AddRutaServlet?action=listRuta">Mis senderos</a>
 	        </li>
 	      </ul>
@@ -60,16 +60,51 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 	
+	
 	<div class="container">
 		<div class="row">
-			<!--<div class="col-md-6 col-md-offset-3 panel panel-default">
-		
-				
-			</div>-->
-		</div>
-	</div>
+			<div class="col-md-6 col-md-offset-3 panel panel-default">
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+				<form action="/AddRutaServlet" method="post" class="form-horizontal">
+				   	<br /><br />
+				   	<div class="form-group">
+						<label class="col-sm-2 control-label">Nombre</label>
+						<div class="col-sm-8">			
+							<input class="form-control" id="nombre" type="text" name="nombre" placeholder="Introduce el nombre" value="<c:out value="${ruta.nombre}" />"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Dificultad</label>
+						<div class="col-sm-8">
+							<input class="form-control" id="dificultad" type="text" name="dificultad" placeholder="Introduce la dificultad" value="<c:out value="${ruta.dificultad}" />" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Puntuación</label>
+						<div class="col-sm-8">
+							<input class="form-control" id="puntuacion" type="text" name="puntuacion" placeholder="Introduce la puntuación" value="<c:out value="${ruta.puntuacion}" />"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Información</label>
+			        	<div class="col-sm-8">
+			        		<textarea class="form-control" id="informacion" name="informacion" rows="5" placeholder="Introduce información de interés"><c:out value="${ruta.informacion}" /></textarea>
+			        	</div>
+			        </div>
+			        <div class="form-group">
+		    			<div class="col-sm-offset-2 col-sm-8">
+							<button id="boton" type="submit" class="btn btn-success center">Guardar</button>
+							<a href="/AddRutaServlet?action=listRuta" class="btn btn-default center">Cancelar</a>
+						</div>
+					</div>
+					<input class="form-control" type="hidden" id="id" type="text" name="id" readonly="readonly" value="<c:out value="${ruta.id}" />" />
+				</form>
+    
+    		</div>
+    	</div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
