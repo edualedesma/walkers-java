@@ -33,12 +33,11 @@
 	        	<a href="#">Inicio<span class="sr-only">(current)</span></a>
 	        </li>
 	        <li>
-	        	<a href="#">Mis senderos</a>
+	        	<a href="/AddRutaServlet?action=listRuta">Mis senderos</a>
 	        </li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li>
-	      		<form action="/Registro.jsp" method="get" class="form-horizontal">
 				<%
 		    		UserService userService = UserServiceFactory.getUserService();
 		    		User user = userService.getCurrentUser();
@@ -55,12 +54,45 @@
 				<%
 					}
 				%>	
-				</form>
 	      	</li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 panel panel-default">
+		
+				<form action="/AddRutaServlet" method="post" class="form-horizontal">
+				   	<br /><br />
+				   	<div class="form-group">
+						<label class="col-sm-2 control-label">Nombre</label>
+						<div class="col-sm-8">			
+							<input class="form-control" id="nombre" type="text" name="nombre" placeholder="Introduce your nickname"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Dificultad</label>
+						<div class="col-sm-8">
+							<input class="form-control" id="dificultad" type="text" name="dificultad" placeholder="Introduce the name of the  subjet" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Información</label>
+			        	<div class="col-sm-8">
+			        		<textarea class="form-control" id="informacion" name="informacion" rows="5" placeholder="Introduce your valuable comments about the subject"></textarea>
+			        	</div>
+			        </div>
+			        <div class="form-group">
+		    			<div class="col-sm-offset-2 col-sm-8">
+							<button id="boton" type="submit" class="btn btn-default center">Añadir</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
