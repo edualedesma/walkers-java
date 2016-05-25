@@ -13,10 +13,10 @@ body {
 	background: transparent;
 }
 
-a:link,a:visited,a:hover,a:active{
+/*a:link,a:visited,a:hover,a:active{
 	color: #4B4956;
 	text-decoration:none;
-}
+}*/
 
 h1 {
 	text-align: center;
@@ -24,16 +24,6 @@ h1 {
 
 .panel {
 	background-color: rgba(255, 255, 255, 0.9);
-}
-
-#banner img {
-	width: 25%;
-	text-align: center;
-    /*float: left;
-    margin-left: 5%;
-    border-radius: 10px;
-    border: 2px solid #045FB4;*/
-    margin-bottom: 4%;
 }
 
 .center-block {
@@ -52,4 +42,16 @@ h1 {
 	border-radius: 10px;
 	margin-left: 30%;
 	margin-top: 2%;*/
+}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+  color: #FFFFFF;
+  text-shadow: 2px 2px 4px #000000; !important
+}
+
+.enlaceIndex {
+	color: #ffbdbd;
+	font-weight: bold;
 }

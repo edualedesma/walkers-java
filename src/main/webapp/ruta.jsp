@@ -9,7 +9,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Mis rutas</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="/stylesheets/mainStyle.css"/>
 </head>
 <body>
@@ -44,13 +44,13 @@
 		    		if (user != null) {
 		        		pageContext.setAttribute("user", user);
 				%>
-			       		<p class="navbar-text">Dear ${fn:escapeXml(user.nickname)}, You can
-			       	    	<a class="navbar-link" href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out</a>
+			       		<p class="navbar-text">${fn:escapeXml(user.nickname)} 
+			       	    	<a class="navbar-link" href="<%= userService.createLogoutURL("/") %>"><span class="glyphicon glyphicon-log-out"></span></a>
 			       	    </p> 
 				<%
 					} else {
 				%>
-						<a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="btn btn-default navbar-btn">Sign in</a>
+						<a href="<%= userService.createLoginURL(request.getRequestURI()) %>"><span class="glyphicon glyphicon-log-in"></span> Sign in</a>
 				<%
 					}
 				%>	
@@ -70,25 +70,25 @@
 				   	<div class="form-group">
 						<label class="col-sm-2 control-label">Nombre</label>
 						<div class="col-sm-8">			
-							<input class="form-control" id="nombre" type="text" name="nombre" placeholder="Introduce el nombre" value="<c:out value="${ruta.nombre}" />"/>
+							<input class="form-control" id="nombre" type="text" name="nombre" placeholder="Introduce el nombre" required="" value="<c:out value="${ruta.nombre}" />"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Dificultad</label>
 						<div class="col-sm-8">
-							<input class="form-control" id="dificultad" type="text" name="dificultad" placeholder="Introduce la dificultad" value="<c:out value="${ruta.dificultad}" />" />
+							<input class="form-control" id="dificultad" type="number" min="5" max="10" name="dificultad" placeholder="Introduce la dificultad" required="" value="<c:out value="${ruta.dificultad}" />" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Puntuación</label>
 						<div class="col-sm-8">
-							<input class="form-control" id="puntuacion" type="text" name="puntuacion" placeholder="Introduce la puntuación" value="<c:out value="${ruta.puntuacion}" />"/>
+							<input class="form-control" id="puntuacion" type="number" min="5" max="10" name="puntuacion" placeholder="Introduce la puntuación" required="" value="<c:out value="${ruta.puntuacion}" />"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Información</label>
 			        	<div class="col-sm-8">
-			        		<textarea class="form-control" id="informacion" name="informacion" rows="5" placeholder="Introduce información de interés"><c:out value="${ruta.informacion}" /></textarea>
+			        		<textarea class="form-control" id="informacion" name="informacion" rows="5" placeholder="Introduce información de interés" required=""><c:out value="${ruta.informacion}" /></textarea>
 			        	</div>
 			        </div>
 			        <div class="form-group">

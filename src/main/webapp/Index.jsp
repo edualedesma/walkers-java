@@ -9,7 +9,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Walkers</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="/stylesheets/mainStyle.css"/>
 </head>
 <body>
@@ -23,14 +23,14 @@
 		      <span class="icon-bar"></span>
 		      <span class="icon-bar"></span>
 		    </button>
-		    <a class="navbar-brand" href="#">Walkers</a>
+		    <a class="navbar-brand" href="/">Walkers</a>
 		  </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="active">
-	        	<a href="#">Inicio<span class="sr-only">(current)</span></a>
+	        	<a href="/">Inicio<span class="sr-only">(current)</span></a>
 	        </li>
 	        <li>
 	        	<a href="/AddRutaServlet?action=listRuta">Mis senderos</a>
@@ -44,13 +44,13 @@
 		    		if (user != null) {
 		        		pageContext.setAttribute("user", user);
 				%>
-			       		<p class="navbar-text">Dear ${fn:escapeXml(user.nickname)}, You can
-			       	    	<a class="navbar-link" href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out</a>
+			       		<p class="navbar-text">${fn:escapeXml(user.nickname)} 
+			       	    	<a class="navbar-link" href="<%= userService.createLogoutURL(request.getRequestURI()) %>"><span class="glyphicon glyphicon-log-out"></span></a>
 			       	    </p> 
 				<%
 					} else {
 				%>
-						<a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="btn btn-default navbar-btn">Sign in</a>
+						<a href="<%= userService.createLoginURL("/AddRutaServlet") %>"><span class="glyphicon glyphicon-log-in"></span> Sign in</a>
 				<%
 					}
 				%>	
@@ -61,12 +61,19 @@
 	</nav>
 	
 	<div class="container">
-		<div class="row">
+		
 			<!--<div class="col-md-6 col-md-offset-3 panel panel-default">
 		
+			
 				
 			</div>-->
-		</div>
+			<div class="starter-template">
+				<h1>Walkers</h1>
+         		<h3>BIENVENIDO A LA RED SOCIAL DEDICADA AL MUNDO DEL SENDERISMO</h3>
+          		<h4>Comienza la aventura...</h4>
+        		<p class="lead">Puedes añadir tus rutas preferidas <a href="/AddRutaServlet?action=insert"><span class="enlaceIndex">aquí</span></a><br>También puedes visualizar tus rutas en la pestaña <a href="/AddRutaServlet?action=insert"><span class="enlaceIndex">mis senderos</span></a></p>
+      		</div>
+	
 	</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

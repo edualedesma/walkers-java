@@ -16,6 +16,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 import practica.eduardo.model.Ruta;
+import practica.eduardo.model.Usuario;
 
 public class RutaDao {
 	
@@ -152,4 +153,41 @@ public class RutaDao {
         }
         return ruta;
     }
+    
+    public void addUser(Usuario user) {
+    	
+    	if (!userExists(user.getId())) {
+    		PreparedStatement preparedStatement;
+			try {
+				preparedStatement = connection
+				        .prepareStatement("insert into Usuarios (id, nombre, email) values (?, ?, ?)");
+				// Parameters start with 1
+	            preparedStatement.setString(1, user.getId());
+	            preparedStatement.setString(2, user.getNombre());
+	            preparedStatement.setString(3, user.getEmail());
+	            preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    }
+
+ 	public boolean userExists(String id) {
+ 		PreparedStatement preparedStatement;
+		try {
+			preparedStatement = connection.
+			        prepareStatement("select * from Usuarios where id=?");
+			preparedStatement.setString(1, id);
+	        ResultSet rs = preparedStatement.executeQuery();
+	        
+	        if (rs.next()) {
+	        	return true;
+	        }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 		return false;
+ 	}
 }

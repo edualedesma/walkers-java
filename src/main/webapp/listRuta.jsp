@@ -26,14 +26,14 @@
 			      <span class="icon-bar"></span>
 			      <span class="icon-bar"></span>
 			    </button>
-			    <a class="navbar-brand" href="/Index.jsp">Walkers</a>
+			    <a class="navbar-brand" href="/">Walkers</a>
 			  </div>
 	
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 		        <li>
-		        	<a href="/Index.jsp">Inicio<span class="sr-only">(current)</span></a>
+		        	<a href="/">Inicio<span class="sr-only">(current)</span></a>
 		        </li>
 		        <li class="active">
 		        	<a href="/AddRutaServlet?action=listRuta">Mis senderos</a>
@@ -47,13 +47,13 @@
 			    		if (user != null) {
 			        		pageContext.setAttribute("user", user);
 					%>
-				       		<p class="navbar-text">Dear ${fn:escapeXml(user.nickname)}, You can
-				       	    	<a class="navbar-link" href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out</a>
+				       		<p class="navbar-text">${fn:escapeXml(user.nickname)} 
+				       	    	<a class="navbar-link" href="<%= userService.createLogoutURL("/") %>"><span class="glyphicon glyphicon-log-out"></span></a>
 				       	    </p> 
 					<%
 						} else {
 					%>
-							<a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="btn btn-default navbar-btn">Sign in</a>
+							<a href="<%= userService.createLoginURL(request.getRequestURI()) %>"><span class="glyphicon glyphicon-log-in"></span> Sign in</a>
 					<%
 						}
 					%>	
@@ -70,18 +70,16 @@
 				<table class="table table-stripe table-hover">
 			        <thead>
 			            <tr>
-			                <th>Id</th>
 			                <th>Nombre</th>
 			                <th>Información</th>
 			                <th>Dificultad</th>
 			                <th>Puntuación</th>
-			                <th colspan=2>Action</th>
+			                <th colspan=2>Acciones</th>
 			            </tr>
 			        </thead>
 			        <tbody>
 			            <c:forEach items="${rutas}" var="ruta">
 			                <tr>
-			                    <td><c:out value="${ruta.id}" /></td>
 			                    <td><c:out value="${ruta.nombre}" /></td>
 			                    <td><c:out value="${ruta.informacion}" /></td>
 			                    <td><c:out value="${ruta.dificultad}" /></td>
@@ -92,7 +90,7 @@
 			            </c:forEach>
 			        </tbody>
 			    </table>
-    			<p><a class="btn btn-success" href="AddRutaServlet?action=insert"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir ruta</a></p>
+    			<p><a class="btn btn-success" href="/AddRutaServlet?action=insert"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir ruta</a></p>
     		</div>
     	</div>
     
