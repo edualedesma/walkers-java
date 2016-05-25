@@ -36,7 +36,7 @@
 		        	<a href="/">Inicio<span class="sr-only">(current)</span></a>
 		        </li>
 		        <li class="active">
-		        	<a href="/AddRutaServlet?action=listRuta">Mis senderos</a>
+		        	<a href="/RutaServlet?action=listRuta">Mis senderos</a>
 		        </li>
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
@@ -62,9 +62,6 @@
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
-	
-	
-
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3 panel panel-default">
 				<table class="table table-stripe table-hover">
@@ -84,17 +81,17 @@
 			                    <td><c:out value="${ruta.informacion}" /></td>
 			                    <td><c:out value="${ruta.dificultad}" /></td>
 			                    <td><c:out value="${ruta.puntuacion}" /></td>
-			                    <td><a href="AddRutaServlet?action=edit&id=<c:out value="${ruta.id}"/>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-			                    <td><a href="AddRutaServlet?action=delete&id=<c:out value="${ruta.id}"/>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+			                    <td><a href="RutaServlet?action=view&id=<c:out value="${ruta.id}"/>"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+			                    <td><a href="RutaServlet?action=edit&id=<c:out value="${ruta.id}"/>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+			                    <td><a href="RutaServlet?action=delete&id=<c:out value="${ruta.id}"/>"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 			                </tr>
 			            </c:forEach>
 			        </tbody>
 			    </table>
-    			<p><a class="btn btn-success" href="/AddRutaServlet?action=insert"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir ruta</a></p>
+    			<p><a class="btn btn-success" href="/RutaServlet?action=insert"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir ruta</a></p>
     		</div>
     	</div>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </body>
 </html>

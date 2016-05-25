@@ -5,18 +5,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 
+import practica.eduardo.model.Ruta;
+import practica.eduardo.model.Usuario;
+
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-
-import practica.eduardo.model.Ruta;
-import practica.eduardo.model.Usuario;
 
 public class RutaDao {
 	

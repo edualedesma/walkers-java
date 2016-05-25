@@ -3,27 +3,25 @@ package practica.eduardo.walkers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.PageContext;
-
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 
 import practica.eduardo.dao.RutaDao;
 import practica.eduardo.model.Ruta;
 import practica.eduardo.model.Usuario;
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 /**
  * Servlet implementation class AddRuta
  */
-public class AddRutaServlet extends HttpServlet {
+public class RutaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private RutaDao dao;
@@ -31,7 +29,7 @@ public class AddRutaServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddRutaServlet() {
+    public RutaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,7 +49,7 @@ public class AddRutaServlet extends HttpServlet {
 		}
         String action = request.getParameter("action");
         /*if (action == null) {
-        	RequestDispatcher jspPage = getServletContext().getRequestDispatcher( "/Index.jsp");
+        	RequestDispatcher jspPage = getServletContext().getRequestDispatcher( "/index.jsp");
             jspPage.forward(request, response);
         }*/
 
@@ -69,7 +67,7 @@ public class AddRutaServlet extends HttpServlet {
 	        //PrintWriter out = response.getWriter();
 			//out.println(action);
 	        if (action == null) {
-	        	RequestDispatcher jspPage = getServletContext().getRequestDispatcher( "/Index.jsp");
+	        	RequestDispatcher jspPage = getServletContext().getRequestDispatcher( "/index.jsp");
 	            jspPage.forward(request, response);
 	        }
 	        else if (action.equalsIgnoreCase("listRuta")){
@@ -93,12 +91,18 @@ public class AddRutaServlet extends HttpServlet {
 			else if (action.equalsIgnoreCase("insert")) {
 				forward = "/ruta.jsp";
 			}
+			else if (action.equalsIgnoreCase("view")) {
+				forward = "/viewRuta.jsp";
+	            int id = Integer.parseInt(request.getParameter("id"));
+	            Ruta ruta = dao.getRutaById(id);
+	            request.setAttribute("ruta", ruta);
+			}
 	
 	        RequestDispatcher view = request.getRequestDispatcher(forward);
 	        view.forward(request, response);
         }
         else {
-			response.sendRedirect(userService.createLoginURL("/Index.jsp"));
+			response.sendRedirect(userService.createLoginURL("/index.jsp"));
         }
 	}
 

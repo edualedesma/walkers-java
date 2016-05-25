@@ -55,3 +55,21 @@ h1 {
 	color: #ffbdbd;
 	font-weight: bold;
 }
+
+textarea {
+    resize: none;
+}
+
+#contenedor-logo {
+  border: 4px solid #fff;
+  border-radius:100%;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+#logo {
+  height: auto;
+  width: 100%;
+}

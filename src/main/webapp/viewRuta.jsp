@@ -25,6 +25,7 @@
 		    </button>
 		    <a class="navbar-brand" href="#">Walkers</a>
 		  </div>
+
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
@@ -58,6 +59,8 @@
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
+	
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3 panel panel-default">
@@ -67,31 +70,30 @@
 				   	<div class="form-group">
 						<label class="col-sm-2 control-label">Nombre</label>
 						<div class="col-sm-8">			
-							<input class="form-control" id="nombre" type="text" name="nombre" placeholder="Introduce el nombre" required="" value="<c:out value="${ruta.nombre}" />"/>
+							<input class="form-control" id="nombre" type="text" name="nombre" placeholder="Introduce el nombre" required="" disabled value="<c:out value="${ruta.nombre}" />"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Dificultad</label>
 						<div class="col-sm-8">
-							<input class="form-control" id="dificultad" type="number" min="5" max="10" name="dificultad" placeholder="Introduce la dificultad" required="" value="<c:out value="${ruta.dificultad}" />" />
+							<input class="form-control" id="dificultad" type="number" min="5" max="10" name="dificultad" placeholder="Introduce la dificultad" required="" disabled value="<c:out value="${ruta.dificultad}" />" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Puntuación</label>
 						<div class="col-sm-8">
-							<input class="form-control" id="puntuacion" type="number" min="5" max="10" name="puntuacion" placeholder="Introduce la puntuación" required="" value="<c:out value="${ruta.puntuacion}" />"/>
+							<input class="form-control" id="puntuacion" type="number" min="5" max="10" name="puntuacion" placeholder="Introduce la puntuación" required="" disabled value="<c:out value="${ruta.puntuacion}" />"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Información</label>
 			        	<div class="col-sm-8">
-			        		<textarea class="form-control" id="informacion" name="informacion" rows="5" placeholder="Introduce información de interés" required=""><c:out value="${ruta.informacion}" /></textarea>
+			        		<textarea class="form-control" id="informacion" name="informacion" rows="5" placeholder="Introduce información de interés" required="" disabled><c:out value="${ruta.informacion}" /></textarea>
 			        	</div>
 			        </div>
 			        <div class="form-group">
 		    			<div class="col-sm-offset-2 col-sm-8">
-							<button id="boton" type="submit" class="btn btn-success center">Guardar</button>
-							<a href="/RutaServlet?action=listRuta" class="btn btn-default center">Cancelar</a>
+							<a href="/RutaServlet?action=listRuta" class="btn btn-default center">Atrás</a>
 						</div>
 					</div>
 					<input class="form-control" type="hidden" id="id" type="text" name="id" readonly="readonly" value="<c:out value="${ruta.id}" />" />
